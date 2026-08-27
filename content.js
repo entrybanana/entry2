@@ -1,17 +1,27 @@
-const script = document.createElement("script");
+// 페이지의 postMessage 수신
+window.addEventListener("message", (event) => {
+    // 다른 창/프레임에서 온 메시지는 무시
+    if (event.source !== window) {
+        return;
+    }
 
-script.src = chrome.runtime.getURL("page-hook.js");
+    const data = event.data;
 
-script.onload = () => {
-    script.remove();
-};
+    if (!data) {
+        return;
+    }
 
-(document.head || document.documentElement).appendChild(script);
+    if (
+        data.source === "ENTRY_EXTERNAL_RUN" &&
+        data.type === "RUN"
+    ) {
+        console.log(
+            "[External Runner] RUN received"
+        );
 
-window.addEventListener("ENTRY_EXTERNAL_RUN", () => {
-    console.log("[External Runner] content.js → RUN");
-
-    chrome.runtime.sendMessage({
-        type: "ENTRY_RUN"
-    });
+        // background.js로 전달
+        chrome.runtime.sendMessage({
+            type: "ENTRY_RUN"
+        });
+    }
 });
