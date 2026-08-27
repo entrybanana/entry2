@@ -1,12 +1,16 @@
 {
   "manifest_version": 3,
   "name": "Entry External Runner",
-  "version": "0.2.0",
+  "version": "0.3.1",
   "description": "EntryJS external runner",
   "permissions": [],
   "host_permissions": [
     "https://playentry.org/*"
   ],
+  "action": {
+    "default_title": "Entry External Runner",
+    "default_popup": "popup.html"
+  },
   "content_scripts": [
     {
       "matches": [
