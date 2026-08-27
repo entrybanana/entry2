@@ -9,6 +9,8 @@ script.onload = () => {
 (document.head || document.documentElement).appendChild(script);
 
 window.addEventListener("ENTRY_EXTERNAL_RUN", () => {
+    console.log("[External Runner] content.js → RUN");
+
     chrome.runtime.sendMessage({
         type: "ENTRY_RUN"
     });
