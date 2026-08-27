@@ -1,6 +1,8 @@
 (() => {
     console.log("[External Runner] page-hook loaded");
 
+    let externalRunning = false;
+
     function installHook() {
         if (!window.Entry) return false;
         if (!Entry.Command) return false;
@@ -20,15 +22,28 @@
                 args
             );
 
+            if (externalRunning) {
+                console.log(
+                    "[External Runner] already running - ignored"
+                );
+                return;
+            }
+
+            externalRunning = true;
+
             window.postMessage({
                 source: "ENTRY_EXTERNAL_RUN",
                 type: "RUN"
             }, "*");
 
-            // Entry 기본 실행 차단
+            console.log(
+                "[External Runner] external RUN started"
+            );
         };
 
-        console.log("[External Runner] 501 hook installed");
+        console.log(
+            "[External Runner] 501 hook installed"
+        );
 
         return true;
     }
