@@ -1,0 +1,26 @@
+{
+  "manifest_version": 3,
+  "name": "Entry External Runner",
+  "version": "0.1.0",
+  "description": "Intercept EntryJS run command",
+  "permissions": [],
+  "host_permissions": [
+    "https://playentry.org/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://playentry.org/ws/*"],
+      "js": ["content.js"],
+      "run_at": "document_start"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["page-hook.js"],
+      "matches": ["https://playentry.org/*"]
+    }
+  ]
+}
